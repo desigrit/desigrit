@@ -1,6 +1,6 @@
-<a href="assets/raunak-portrait-circle.svg"><img align="right" src="assets/raunak-portrait-circle.svg" width="24%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
-
 # Raunak Oberoi
+
+<a href="assets/raunak-portrait-circle.svg"><img align="right" src="assets/raunak-portrait-circle.svg" width="24%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
 
 **Local AI, speech interfaces, and tools for building.**
 
