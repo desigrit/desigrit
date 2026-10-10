@@ -2,15 +2,15 @@
 
 <a href="assets/raunak-portrait-circle.svg"><img align="left" src="assets/raunak-portrait-circle.svg" width="15%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
 
-**Local AI, speech interfaces, and custom harnesses.**
+I build apps around problems I run into. 
 
-I build apps around problems I run into.
+**Local AI, speech interfaces, and custom harnesses.**
 
 [LinkedIn](https://www.linkedin.com/in/raunakoberoi/)
 
 <br clear="right">
 
-
+#
 
 ### <img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; [Zebby](https://github.com/desigrit/zebby-the-scout)
 
