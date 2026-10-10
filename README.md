@@ -1,16 +1,16 @@
 # Raunak Oberoi
 
-<a href="assets/raunak-portrait-circle.svg"><img align="right" src="assets/raunak-portrait-circle.svg" width="24%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
+<a href="assets/raunak-portrait-circle.svg"><img align="left" src="assets/raunak-portrait-circle.svg" width="15%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
+
+**Local AI, speech interfaces, and custom harnesses.**
+
+I build apps around problems I run into.
 
 [LinkedIn](https://www.linkedin.com/in/raunakoberoi/)
 
-**Local AI, speech interfaces, and tools for building.**
-
-I build apps around problems I run into: following conversations, moving between machines, and finding a better way through an everyday task. I take them through the whole stack, from model selection and benchmarks to native interfaces, packaging, and recovery when something breaks.
-
 <br clear="right">
 
-## Projects
+
 
 ### <img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; [Zebby](https://github.com/desigrit/zebby-the-scout)
 
