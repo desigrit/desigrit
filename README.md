@@ -14,40 +14,48 @@ I build apps around problems I run into.
 
 ### <img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; [Zebby](https://github.com/desigrit/zebby-the-scout)
 
-**A desktop workspace for role planning and application tracking.** History, documents, and the reasoning for each application in one place.
+**Plan a role, prepare your CV and track what happens next.** A desktop app for job seekers, with local models, your own API keys or optional Zebby credits.
 
-<a href="assets/zebby.png">
+<a href="assets/zebby.png?v=2.2.2">
   <picture>
-    <source media="(max-width: 600px)" srcset="assets/zebby-cover-mobile.png">
-    <img src="assets/zebby-cover.png" width="1200" alt="Zebby: a workspace for your next move. The desktop interface shows sample applications and the selected role's details. Open the full-size screenshot.">
+    <source media="(max-width: 600px)" srcset="assets/zebby-cover-mobile.png?v=2.2.2">
+    <img src="assets/zebby-cover.png?v=2.2.2" width="1200" alt="Zebby 2.2.2 with varied daily application totals, stacked statuses and the selected role's details. Open the full-size screenshot.">
   </picture>
 </a>
 
-<sub>Sample application data.</sub>
+<sub>Sample applications and analysis results.</sub>
 
 **[Download for Windows or Mac](https://github.com/desigrit/zebby-the-scout/releases/latest)** &nbsp; / &nbsp; [Repository](https://github.com/desigrit/zebby-the-scout)
 
 <details>
+<summary>Analysis options and credits</summary>
+
+- **Bring your own key:** OpenAI or Anthropic, billed to your provider account.
+- **Run locally:** use your Ollama server or download a CPU model in Settings.
+- **Zebby credits:** buy a pack for online analysis, then choose GPT-6.1 Sol or GPT-6 Astra. No signup or API key needed.
+
+#### Your own API key
+
+<img src="assets/zebby-key-settings.png?v=2.2.2" width="1200" alt="Zebby's current Settings with OpenAI selected, a masked demo key, model selection and supported thinking levels.">
+
+#### Optional credit packs
+
+<img src="assets/zebby-credits.png?v=2.2.2" width="930" alt="Zebby's credit purchase dialog with current packs and illustrative GPT-6.1 Sol High analysis counts.">
+
+Zebby shows the maximum credit cost before analysis and charges for actual usage. A recovery code restores your wallet; computer pairing shares it across your PCs.
+
+</details>
+
+<details>
 <summary>Inside the build / Technical notes</summary>
 
-Built with Electron, React, TypeScript, SQLite, and a native CPU inference engine.
+Electron, React, TypeScript, SQLite and a native CPU inference engine.
 
-- **Portable data, local credentials.** Plans, applications, and resumes live in a user-selected SQLite file. The app works on a local copy and saves complete snapshots, checking for outside changes before writing. Keys and model weights stay outside the shared file; simultaneous edits on two computers are not merged.
-- **An explicit model choice.** Built-in models, a chosen Ollama server, and hosted providers share an analysis contract. A failed request does not silently switch providers or models, and oversized inputs produce an error instead of hidden truncation.
-- **Keep inference out of the interface.** A typed Electron bridge separates the React UI from storage and analysis. The bundled engine runs in a separate process, listens only on loopback with an app-generated secret, and releases memory when idle.
+- **Portable data:** plans, applications and resumes live in a SQLite file you choose. Close Zebby and let cloud syncing finish before switching computers.
+- **Explicit analysis:** use the selected local or online model, with no silent fallback. Online methods send the selected job and CV content to that provider.
+- **Separate credentials:** API keys, wallet access and model downloads stay on each computer, outside the shared database.
 
-```mermaid
-flowchart TD
-    accTitle: Zebby architecture
-    accDescr: The React interface uses Electron IPC to reach the desktop main process. The process manages SQLite snapshots and routes analysis to the explicitly selected local engine, Ollama server, or hosted provider.
-    UI["React interface"] <-->|"typed Electron IPC"| Main["Desktop main process"]
-    Main <-->|"working copy and snapshots"| DB[("SQLite workspace")]
-    Main <-->|"analysis contract"| Route["Selected provider"]
-    Route <--> Local["Native CPU engine"]
-    Route <--> API["Ollama or hosted API"]
-```
-
-[Build guide and storage decisions](https://github.com/desigrit/zebby-the-scout/blob/main/docs/guide.md) &nbsp; / &nbsp; [Analysis routing](https://github.com/desigrit/zebby-the-scout/blob/main/desktop/analysis-routing.ts)
+[Build and storage guide](https://github.com/desigrit/zebby-the-scout/blob/main/docs/guide.md) &nbsp; / &nbsp; [Analysis routing](https://github.com/desigrit/zebby-the-scout/blob/main/desktop/analysis-routing.ts)
 
 </details>
 
