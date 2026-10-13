@@ -53,10 +53,10 @@ Your GPU is at home. You are somewhere else. Shambu checks that the two of you a
 
 **[Download for Windows, Mac or Android](https://github.com/desigrit/shambu/releases/latest)** &nbsp; / &nbsp; [Repository](https://github.com/desigrit/shambu)
 
-<a href="assets/shambu.png?v=1.0.3">
+<a href="assets/shambu.png?v=1.0.4">
   <picture>
-    <source media="(max-width: 600px)" srcset="assets/shambu-cover-mobile.png?v=1.0.3">
-    <img src="assets/shambu-cover.png?v=1.0.3" width="1200" alt="Shambu showing server readiness, live GPU load, VRAM usage and 48 hours of activity. Open the full-size screenshot.">
+    <source media="(max-width: 600px)" srcset="assets/shambu-cover-mobile.png?v=1.0.4">
+    <img src="assets/shambu-cover.png?v=1.0.4" width="1200" alt="Shambu showing server readiness, live GPU load, VRAM usage and 48 hours of activity. Open the full-size screenshot.">
   </picture>
 </a>
 
