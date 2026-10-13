@@ -13,7 +13,7 @@ I build apps around problems I run into.
 ---
 
 <details>
-<summary><img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Zebby</strong> &middot; Plan a role, prepare your CV and track what happens next.</summary>
+<summary><img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Zebby the Scout</strong> &middot; Plan a role, prepare your CV and track what happens next.</summary>
 
 A desktop app for job seekers, with local models, your own API keys or optional Zebby credits.
 
