@@ -47,7 +47,7 @@ Zebby shows the maximum credit cost before analysis and charges for actual usage
 </details>
 
 <details>
-<summary><img src="assets/shambu-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Shambu</strong> &middot; Keep an eye on your GPU back home.</summary>
+<summary><img src="assets/shambu-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Shambu</strong> &middot; A quiet, whimsical status app for your private GPU server.</summary>
 
 Your GPU is at home. You are somewhere else. Shambu checks that the two of you are still on speaking terms, with server status, live GPU load, memory usage and 48 hours of activity.
 
