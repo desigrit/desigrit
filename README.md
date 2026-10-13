@@ -65,7 +65,7 @@ Currently an early Android preview.
 </details>
 
 <details>
-<summary><img src="assets/rangoli-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Rangoli</strong> &middot; Pick a color anywhere on your Mac.</summary>
+<summary><img src="assets/rangoli-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Rangoli</strong> &middot; Color picker with a live swatch preview for your Mac.</summary>
 
 A menu-bar eyedropper with a live swatch, a nearby color name, and one-click copying in Hex, RGB, HSL, HSV, CMYK, or Lab. Open it with Control-Option-C, pick a pixel, and get back to what you were doing.
 
