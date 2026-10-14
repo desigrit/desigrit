@@ -13,6 +13,23 @@ I build apps around problems I run into.
 ---
 
 <details>
+<summary><img src="assets/shambu-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Shambu</strong> &middot; A quiet, whimsical status app for your private GPU server.</summary>
+
+Your GPU is at home, but you need to be out and about. Shambu checks that the two of you are still on speaking terms, with server status, live GPU load, memory usage and 48 hours of activity.
+
+**[Download for Windows, Mac or Android](https://github.com/desigrit/shambu/releases/latest)** &nbsp; / &nbsp; [Repository](https://github.com/desigrit/shambu)
+
+<a href="assets/shambu.png?v=1.0.4">
+  <picture>
+    <source media="(max-width: 600px)" srcset="assets/shambu-cover-mobile.png?v=1.0.4">
+    <img src="assets/shambu-cover.png?v=1.0.4" width="1200" alt="Shambu showing server readiness, live GPU load, VRAM usage and 48 hours of activity. Open the full-size screenshot.">
+  </picture>
+</a>
+
+</details>
+
+
+<details>
 <summary><img src="assets/zebby-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Zebby the Scout</strong> &middot; Plan a role, prepare your CV and track what happens next.</summary>
 
 A desktop app for job seekers, with local models, your own API keys or optional Zebby credits.
@@ -43,22 +60,6 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 <img src="assets/zebby-credits.png?v=2.2.2" width="930" alt="Zebby's credit purchase dialog with current packs and illustrative GPT-6.1 Sol High analysis counts.">
 
 Zebby shows the maximum credit cost before analysis and charges for actual usage. A recovery code restores your wallet; computer pairing shares it across your PCs.
-
-</details>
-
-<details>
-<summary><img src="assets/shambu-icon.png" width="32" height="32" align="absmiddle" alt=""> &nbsp; <strong>Shambu</strong> &middot; A quiet, whimsical status app for your private GPU server.</summary>
-
-Your GPU is at home. You are somewhere else. Shambu checks that the two of you are still on speaking terms, with server status, live GPU load, memory usage and 48 hours of activity.
-
-**[Download for Windows, Mac or Android](https://github.com/desigrit/shambu/releases/latest)** &nbsp; / &nbsp; [Repository](https://github.com/desigrit/shambu)
-
-<a href="assets/shambu.png?v=1.0.4">
-  <picture>
-    <source media="(max-width: 600px)" srcset="assets/shambu-cover-mobile.png?v=1.0.4">
-    <img src="assets/shambu-cover.png?v=1.0.4" width="1200" alt="Shambu showing server readiness, live GPU load, VRAM usage and 48 hours of activity. Open the full-size screenshot.">
-  </picture>
-</a>
 
 </details>
 
