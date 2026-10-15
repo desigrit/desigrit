@@ -36,11 +36,8 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 **[Download for Windows or Mac](https://github.com/desigrit/zebby-the-scout/releases/latest)** &nbsp; / &nbsp; [Repository](https://github.com/desigrit/zebby-the-scout)
 
-<a href="assets/zebby.png?v=2.2.2">
-  <picture>
-    <source media="(max-width: 600px)" srcset="assets/zebby-cover-mobile.png?v=2.2.2">
-    <img src="assets/zebby-cover.png?v=2.2.2" width="1200" alt="Zebby 2.2.2 with varied daily application totals, stacked statuses and the selected role's details. Open the full-size screenshot.">
-  </picture>
+<a href="https://github.com/desigrit/zebby-the-scout/blob/main/docs/screenshots/zebby-collage.png">
+  <img src="assets/zebby-collage.jpg" width="1200" alt="Zebby's Plan and Applications screens, showing resume matching, ATS keywords and application tracking. Open the full-size image.">
 </a>
 
 <sub>Sample applications and analysis results.</sub>
