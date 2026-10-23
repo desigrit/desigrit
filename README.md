@@ -2,7 +2,7 @@
 
 <a href="assets/raunak-portrait-circle.svg"><img align="left" src="assets/raunak-portrait-circle.svg" width="15%" alt="Circular illustrated portrait of Raunak, with birds reflected in blue glasses and a pencil tucked behind his ear. Open the full-size portrait."></a>
 
-I build apps around problems I run into. 
+Builder of stuff.
 
 **Local AI, speech interfaces, and custom harnesses.**
 
