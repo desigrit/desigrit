@@ -54,7 +54,11 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 <sub>Sample applications and analysis results.</sub>
 
-**Scoring, model limits and paid analysis**
+[Explore the nine interactive design directions](https://desigrit.github.io/zebby-the-scout/design-study/) · [How I chose the final combination](https://github.com/desigrit/zebby-the-scout#choosing-a-design-direction)
+
+**Design choices, model limits and paid analysis**
+
+- **I combined two design directions and kept the useful parts of the existing app.** I compared nine interactive concepts that varied layout as well as color: lists with inspectors, tables, boards and guided flows. I chose **Ember's palette, Applications and Settings**, with **Rosewood's document-style Plan in Ember colors**. I rejected Ember's simplified New Application form because it dropped features, and kept Plan's keywords and resume themes side by side with scores and copy controls. The choice was made screen by screen, with a consistent palette tying the result together.
 
 - **The 62% versus 90% result made me question the score itself.** Two local models gave those answers for the same resume and role. I wanted the result to separate a requirement's importance from the evidence in the resume, so an essential skill could appear even when the document did not demonstrate it. That comparison exposed inconsistency; it did not establish which model was correct. The score remains a rough guide, not an employer's screening result.
 
