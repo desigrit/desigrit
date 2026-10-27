@@ -26,6 +26,14 @@ Your GPU is at home, but you need to be out and about. Shambu checks that the tw
   </picture>
 </a>
 
+**Decisions behind Shambu**
+
+I kept the app focused on checking whether my home GPU is ready to use. It checks connections and model availability without loading a model, so status checks stay lightweight. That cannot tell me how good or fast a model's answers will be.
+
+Codex helped build the app; I tested it on my devices. When my phone reached Ollama but showed Tailscale as "Not linked," I challenged the message. The missing piece was access to detailed diagnostics, not the connection itself. That wording still needs work.
+
+[Read the tradeoffs and AI collaboration](https://github.com/desigrit/shambu#decisions-behind-shambu)
+
 </details>
 
 
@@ -80,6 +88,14 @@ Currently an early Android preview.
 
 <sub>Android product mockup with illustrative subtitle text.</sub>
 
+**Decisions behind Kaptus**
+
+I gave AI a focused job: recognize enough dialogue to find the scene in an existing subtitle file. Once the scene is found, the microphone turns off and a clock keeps captions moving. The tradeoff is that viewers may need to tap **Resync** after a pause or seek.
+
+Codex helped build the app. I pushed back when rotating the phone or adjusting the timeline restarted listening and interrupted captions. Testing on real phones still needs to establish how reliably it finds the right scene in noisy rooms.
+
+[Read the tradeoffs and AI collaboration](https://github.com/desigrit/kaptus#decisions-behind-kaptus)
+
 </details>
 
 <details>
@@ -99,6 +115,14 @@ A menu-bar eyedropper with a live swatch, a nearby color name, and one-click cop
   <img src="assets/rangoli-format.png" width="176" alt="Rangoli's compact format selector with Hex selected."> &nbsp;
   <img src="assets/rangoli-preview.png" width="210" alt="Rangoli's live color preview with a swatch, color code, and nearest color name.">
 </p>
+
+**Decisions behind Rangoli**
+
+I chose a small, predictable workflow: open the picker, see the color, copy it and return to work. Color names come from a standard list, so the app does not need an AI model to name each pixel. Those names are useful approximations.
+
+Codex helped build the app; I tested the interaction. I pushed back on oversized controls, a preview stuck on one color and an eyedropper that sampled the wrong place. Looking polished was only useful if the copied color was right.
+
+[Read the tradeoffs and AI collaboration](https://github.com/desigrit/rangoli-picker#decisions-behind-rangoli)
 
 </details>
 
@@ -148,6 +172,14 @@ Selected conversations, project files, and Git state move through an existing cl
   </picture>
 </a>
 
+**Decisions behind Spice Route**
+
+I chose existing cloud drives to carry work between computers, with a review step and a recovery copy before changes. That adds steps and depends on the drive app finishing its sync.
+
+Codex helped build and test the transfers. I challenged "This device has the latest handoff" because seeing a file on one computer does not prove another has received it. I asked for a direct comparison with the sync folder and followed up on how a Pull would preserve work created on the receiving computer.
+
+[Read the tradeoffs and AI collaboration](https://github.com/desigrit/project-spice-route#product-decisions)
+
 </details>
 
 <details>
@@ -162,5 +194,13 @@ A Raspberry Pi system that turns retail e-paper displays into household dashboar
     <img src="assets/esl-hub-tags.jpg" width="560" alt="Four ESL Hub e-paper tags on a wall, displaying Dota progress, weather, fitness, and home energy dashboards. Open the full-size photo.">
   </a>
 </p>
+
+**Decisions behind ESL Hub**
+
+I chose quiet e-paper displays for household information, accepting limited space and scheduled updates. During repairs with Codex, we found that an accepted request did not always mean the display had updated. Success now requires delivery confirmation.
+
+I pushed back when a text-overflow fix started changing the vendor's layout. We shortened long titles in code instead. I also questioned why calendar events were missing, which exposed a data-filtering problem behind the initial explanation. Delivery checks still cannot prove that the displayed information is complete.
+
+[Read the tradeoffs and AI collaboration](https://github.com/desigrit/esl-home-hub#decisions-behind-esl-hub)
 
 </details>
