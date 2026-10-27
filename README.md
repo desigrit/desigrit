@@ -26,13 +26,17 @@ Your GPU is at home, but you need to be out and about. Shambu checks that the tw
   </picture>
 </a>
 
-**Decisions behind Shambu**
+**Separate connection checks from server diagnostics**
 
-I kept the app focused on checking whether my home GPU is ready to use. It checks connections and model availability without loading a model, so status checks stay lightweight. That cannot tell me how good or fast a model's answers will be.
+- **Two paths answer different questions.** I approved one Rust backend and a shared interface for Windows, Mac and Android, but the checks need different sources of evidence. Each client contacts Ollama directly for reachability and model availability. A separate, authenticated host companion reports the GPU PC's Tailscale state, forwarding setup and GPU readings. A phone cannot inspect those server details from its own local network status.
 
-Codex helped build the app; I tested it on my devices. When my phone reached Ollama but showed Tailscale as "Not linked," I challenged the message. The missing piece was access to detailed diagnostics, not the connection itself. That wording still needs work.
+- **I challenged a misleading failure state.** My phone could reach Ollama through the PC's Tailscale address while Shambu showed Tailscale as "Not linked." The route clearly worked; the phone had not been paired for host diagnostics. I pushed back on treating missing diagnostic access like a broken connection. The current wording still needs to distinguish those states more clearly.
 
-[Read the tradeoffs and AI collaboration](https://github.com/desigrit/shambu#decisions-behind-shambu)
+- **Readiness checks should not create GPU work.** The companion uses read-only endpoints and fixed system queries. It never loads a model or runs a test prompt. That keeps monitoring from consuming the resource being monitored, but it also limits the claim: reachable services and available models do not establish inference speed or answer quality.
+
+- **GPU activity needs an honest definition.** The 48-hour chart combines GPU utilization with recent evidence that Ollama has a model in GPU memory. A loaded model alone does not count as activity. Other GPU work can still contribute, and short bursts can fall between samples, so the chart is an estimate rather than a request counter. Live readings expire after 15 seconds; missing readings show N/A, while a measured zero stays zero.
+
+[Host companion and evidence sources](https://github.com/desigrit/shambu/blob/main/docs/host-agent.md) · [Status and recovery states](https://github.com/desigrit/shambu/blob/main/docs/ux-states.md)
 
 </details>
 
@@ -50,19 +54,21 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 <sub>Sample applications and analysis results.</sub>
 
-**Decisions behind Zebby**
+**Scoring, model limits and paid analysis**
 
-**A score needs an explanation.** Two models once gave the same resume a 62% and a 90% match for the same job. I wanted to show what the job asks for and what the resume actually supports. The score is a rough guide, not a prediction of getting hired.
+- **The 62% versus 90% result made me question the score itself.** Two local models gave those answers for the same resume and role. I wanted the result to separate a requirement's importance from the evidence in the resume, so an essential skill could appear even when the document did not demonstrate it. That comparison exposed inconsistency; it did not establish which model was correct. The score remains a rough guide, not an employer's screening result.
 
-**Different models do different jobs.** The smallest local model checks which job-related terms appear in the resume and can suggest light edits. It does not judge the depth of someone's experience. I made that limit clear rather than presenting every model's score as the same kind of assessment.
+- **The smallest model gets a narrower task.** In SmolLM2 mode, code calculates keyword coverage and the model suggests limited wording edits. It does not judge the depth of someone's experience. I wanted that distinction visible because a keyword score and a full resume assessment answer different questions. More capable models retain the full analysis rather than silently falling back to a simpler score.
 
-**How I worked with AI.** Codex wrote much of the code and tests. I used the builds in my own job search, combined parts of different design proposals, and turned problems I encountered into specific requests.
+- **An unchanged rewrite needs an explanation.** When my summary came back untouched, I asked why. Keeping good wording is a valid result, but silence makes it look like the request failed. The instructions preserve the user's voice and prohibit invented achievements; compact-mode checks can reject an edit and keep the original. Those checks also risk rejecting useful changes, so factual support and writing quality need separate evaluation.
 
-**Where I pushed back.** I kept useful fields that a cleaner design had removed. I asked for an explanation when a suggested rewrite left my summary unchanged. And when analysis failed with most of my credits still available, I asked to fix how many credits the app set aside before a run while keeping my chosen model and settings.
+- **I challenged the reservation logic before changing my model choice.** Astra could not start with roughly 90% of my credits still available because the service reserved a large maximum response. I asked to retain my model and thinking level. Quotes now count the complete input and use different output budgets for a match check and a full Plan. Successful runs settle against actual usage and release unused credit. Upfront reservations and response-length limits still matter.
 
-**What I still need to test.** I want to compare the advice with human reviews and find out whether the explanations help people make better edits to their resumes.
+- **Removing signup moved the complexity into recovery.** I chose a guest wallet with device access, a recovery code and temporary pairing codes. Wallet credentials live outside the shared SQLite applications file, so syncing job records does not also share spending access. Checkout is simpler, but losing every paired device and the recovery code prevents automatic recovery.
 
-[Read the full decisions and AI collaboration writeup](https://github.com/desigrit/zebby-the-scout#product-decisions)
+- **Paid analysis should survive navigation.** I pushed back when leaving a page stopped work and when moving a Plan to Applications would require another analysis. Requests now remain tied to their original job, protect against late results overwriting a changed Plan, and carry the score forward into Applications. That makes cancellation, duplicate requests and the point at which a result is saved part of the product design.
+
+[Full decision notes](https://github.com/desigrit/zebby-the-scout#product-decisions) · [Analysis rules](https://github.com/desigrit/zebby-the-scout/blob/main/desktop/analysis-contracts.ts)
 
 **Analysis options and credits**
 
@@ -88,13 +94,19 @@ Currently an early Android preview.
 
 <sub>Android product mockup with illustrative subtitle text.</sub>
 
-**Decisions behind Kaptus**
+**Scene matching without continuous transcription**
 
-I gave AI a focused job: recognize enough dialogue to find the scene in an existing subtitle file. Once the scene is found, the microphone turns off and a clock keeps captions moving. The tradeoff is that viewers may need to tap **Resync** after a pause or seek.
+- **I narrowed the recognition problem.** The viewer selects a movie or episode, and speech recognition helps locate the current scene in an existing subtitle file. This avoids asking one system to identify an unknown film, generate accurate captions and synchronize them at once. The original subtitle text remains the display source; punctuation and formatting are normalized only for matching.
 
-Codex helped build the app. I pushed back when rotating the phone or adjusting the timeline restarted listening and interrupted captions. Testing on real phones still needs to establish how reliably it finds the right scene in noisy rooms.
+- **The timing discussion changed my proposed architecture.** I initially suggested a second, near-instant model to synchronize captions after transcription. The better answer was already available in the audio timestamps: match the captured dialogue to a subtitle position, advance that position by the processing time, then let a monotonic clock drive playback. I accepted that approach because a second model would add work to a timing problem the clock could handle.
 
-[Read the tradeoffs and AI collaboration](https://github.com/desigrit/kaptus#decisions-behind-kaptus)
+- **I pushed back on an acquisition flow that took minutes.** I asked to simplify the matching rules and make distinctive word sequences enough to find the scene. The implementation accumulates overlapping dialogue without duplicating words, favors distinctive terms and retains a check for competing matches elsewhere in the film. A latest-only audio queue prevents old windows from building a backlog. Repeated dialogue can still be ambiguous.
+
+- **Listening became an explicit action.** I rejected the microphone restarting when I rotated the phone or manually moved the timeline. Once synchronized, capture stops and the caption clock continues. Opening captions or pressing **Resync** starts recognition. This preserves playback across rotation and app switching, at the cost of asking viewers to resync when the movie pauses, jumps or uses a different cut.
+
+- **Offline use has a distribution cost.** The English model ships inside the roughly 129 MB Android preview, and preparation can save up to three caption tracks. That supports use without a theater connection. I also chose each viewer's own OpenSubtitles key, accepting setup friction and individual download allowances instead of a shared download bill.
+
+[Product decisions and preview limits](https://github.com/desigrit/kaptus#decisions-behind-kaptus) · [Matching, clock and lifecycle checks](https://github.com/desigrit/kaptus/tree/main/app/src/test/java/com/example/kaptus/sync)
 
 </details>
 
@@ -116,13 +128,17 @@ A menu-bar eyedropper with a live swatch, a nearby color name, and one-click cop
   <img src="assets/rangoli-preview.png" width="210" alt="Rangoli's live color preview with a swatch, color code, and nearest color name.">
 </p>
 
-**Decisions behind Rangoli**
+**Pixel accuracy and a minimal Mac app**
 
-I chose a small, predictable workflow: open the picker, see the color, copy it and return to work. Color names come from a standard list, so the app does not need an AI model to name each pixel. Those names are useful approximations.
+- **I constrained the app to one interaction.** Open the picker, preview a color, copy its code and return to the previous app. I chose native Swift and AppKit, a menu bar entry and a configurable shortcut, with no third-party dependencies. A larger workspace and color history stayed outside the first release. I pushed back when the controls grew too large for that small task.
 
-Codex helped build the app; I tested the interaction. I pushed back on oversized controls, a preview stuck on one color and an eyedropper that sampled the wrong place. Looking polished was only useful if the copied color was right.
+- **The eyedropper had to copy the pixel it pointed at.** I reported a preview stuck on one color and later a pointer that appeared offset or sampled the background. The sampling path now uses ScreenCaptureKit at native display resolution, includes foreground windows and excludes Rangoli's own panels. It crops one pixel before color conversion, avoiding an average of neighboring pixels. Retina scaling and cursor alignment belong in the accuracy checks, not just visual polish.
 
-[Read the tradeoffs and AI collaboration](https://github.com/desigrit/rangoli-picker#decisions-behind-rangoli)
+- **I reduced the ambition of color naming.** After considering more detailed descriptions, I chose the nearest of the 148 standard CSS color names. This gives a fixed, inspectable mapping and avoids inventing a different description for the same color. It also means a name is approximate. Samples are converted to sRGB; the CMYK option is a screen-color approximation, not a print-profile conversion.
+
+- **Permissions are part of the workflow.** I asked why a tiny picker needed screen-recording access. Reading pixels through the chosen macOS API requires that permission, so capture is limited to active picking and the app provides a retry path. Clicking copies and closes; Esc, right-click and the shortcut cancel. I also pushed back on a cursor that reverted while picking was still active.
+
+[Sampling implementation](https://github.com/desigrit/rangoli-picker/blob/main/Sources/Rang/ScreenSampler.swift) · [Pixel and cursor checks](https://github.com/desigrit/rangoli-picker/blob/main/Sources/Rang/SamplingDiagnostics.swift)
 
 </details>
 
@@ -142,19 +158,19 @@ Speaker labels and native Windows and Mac apps.
 
 <sub>macOS interface with a demo conversation. Select the image for a closer look.</sub>
 
-**Decisions behind Sunno**
+**Live recognition, corrections and speaker identity**
 
-**The main tradeoff.** Captions need to arrive soon enough to follow a conversation and get the words right. I kept several model choices because the best balance depends on the computer and the speech. On Mac, I chose to try fast captions followed by corrections from a larger model. That uses more memory and power, and still needs a fair comparison.
+- **I questioned whether we were using the Mac's hardware well.** The discussion led to processing new audio once where streaming engines allow it, adapting update timing to measured work, and keeping existing engines available for comparison on an M1 Max. For the Mac comparison build, I chose Apple Speech for early captions with optional Whisper large-v3 corrections. Running both costs memory and power, and later corrections can make a line harder to follow even when the words improve.
 
-**A choice about trust.** The same speech got a more reassuring confidence score on Mac than on Windows. We left that score out on Mac until we can check it properly. A reassuring number is only useful if it means what the reader thinks it means.
+- **A correction must not block the next sentence.** Live recognition and Whisper correction run in separate workers. At most two corrections can wait, and work older than 12 seconds is skipped. A failed or stale correction leaves the first caption intact; a late result cannot restore cleared text or overwrite a speaker edit. That deliberately gives up some corrections to preserve the live conversation.
 
-**How I worked with AI.** AI helped investigate problems and write code and tests. I tried the app in conversations and while watching videos, then brought back specific failures. I also questioned whether we were making good use of the Mac's hardware and chose changes I could compare in the same app.
+- **I challenged speaker labeling as a feature, not just a tuning problem.** A single webinar presenter appeared as several people. The investigation separated speech recognition from the CAM++ voice representations used for speaker matching, so upgrading Whisper alone would not solve it. I rejected a dedicated single-speaker mode because I watch changing video content, and asked for **Off / Automatic (Experimental)** with revisable labels, no confirmation prompts and no required saved voice profiles. Those controls are now in the Windows app; label accuracy still needs evaluation.
 
-**Where I pushed back.** When one webinar presenter appeared as several speakers, I questioned whether speaker labels should stay at all. I rejected a single-speaker mode as a poor fit for the changing videos I watch. I asked for optional labels that could be corrected as more speech arrived, without interrupting the captions. That work is still being evaluated.
+- **The Windows confidence formula did not survive the Mac port.** On the same three clips and small model, one mapped score rose from 89 on Windows to 100 on Mac; another rose from 0 to 48. We withheld the Mac clarity badge because the change in scale did not establish better transcription. Three clips could expose the mismatch, but could not calibrate a trustworthy replacement.
 
-**What I still need to test.** I want to measure accuracy, delay and battery use, and learn how comfortable the captions are to follow when words and speaker labels change.
+- **A hallucination filter also deleted legitimate speech.** A rule meant to catch invented subtitle credits removed "The book was translated by Tolkien himself." Review showed the tests lacked ordinary sentences containing similar words. The filter was narrowed and tests added for both unwanted output and speech that must survive. That is why I want recognition quality judged alongside false deletions, revision frequency and reading effort, rather than a single accuracy number.
 
-Read the full writeups: [Windows](https://github.com/desigrit/sunno#product-decisions-and-model-judgment) · [Mac](https://github.com/desigrit/sunno-macos#product-decisions-and-model-judgment)
+[Windows decisions](https://github.com/desigrit/sunno#product-decisions-and-model-judgment) · [Mac correction architecture](https://github.com/desigrit/sunno-macos/blob/main/docs/STREAMING.md) · [Confidence comparison](https://github.com/desigrit/sunno-macos/blob/main/docs/MACOS-PORT.md#the-clarity-score-does-not-transfer-unchanged)
 
 </details>
 
@@ -172,13 +188,19 @@ Selected conversations, project files, and Git state move through an existing cl
   </picture>
 </a>
 
-**Decisions behind Spice Route**
+**Selective sync, version compatibility and recovery**
 
-I chose existing cloud drives to carry work between computers, with a review step and a recovery copy before changes. That adds steps and depends on the drive app finishing its sync.
+- **A handoff carries selected records and files.** I wanted full projects, chat history only, and exclusions, using an existing cloud drive. The engine exports selected database records, captures workspace files and Git state, and verifies content hashes before restoring. It does not copy an entire source database over the destination. Device paths and permissions need local handling, while unrelated destination work must survive.
 
-Codex helped build and test the transfers. I challenged "This device has the latest handoff" because seeing a file on one computer does not prove another has received it. I asked for a direct comparison with the sync folder and followed up on how a Pull would preserve work created on the receiving computer.
+- **I challenged what "latest" could mean.** "This device has the latest handoff" implied more than the app could know. I asked for a comparison between this computer and the handoff visible in its sync folder, plus a reminder to let the drive finish. A successful Push proves local publication; it cannot prove that OneDrive, Google Drive or iCloud has delivered every file to another computer.
 
-[Read the tradeoffs and AI collaboration](https://github.com/desigrit/project-spice-route#product-decisions)
+- **Duplicate folders exposed two kinds of identity.** After a Pull, I reported empty duplicate projects and asked what would happen to projects created only on the receiving Mac. Codex has both database project IDs and sidebar folder IDs. The fix keeps the destination sidebar identity for a matching project. Equal names are insufficient to merge distinct projects. Conflicting edits are compared against a shared baseline and presented for review.
+
+- **Database compatibility needs more than a version number.** When Codex updates blocked a handoff, I asked for the actual database changes to be inspected. The adapter checks known layouts and preserves supported newer history fields when the destination has no column for them, carrying those values into later handoffs. Unknown layouts still block writes. This avoids silently discarding data, but creates maintenance work as Codex evolves.
+
+- **Recovery is part of the restore design.** Replacing databases, files and Git state cannot happen in one transaction. Pull stages changes and records recovery copies and a journal before applying them. Windows and Mac use different interface shells over the same Rust engine, keeping merge and recovery rules shared. The cost is extra disk use and testing across interrupted transfers, repeated pulls and platform differences.
+
+[Transfer architecture and merge rules](https://github.com/desigrit/project-spice-route/blob/main/docs/architecture.md) · [Database compatibility decisions](https://github.com/desigrit/project-spice-route/blob/main/docs/compatibility-plan.md)
 
 </details>
 
@@ -195,12 +217,18 @@ A Raspberry Pi system that turns retail e-paper displays into household dashboar
   </a>
 </p>
 
-**Decisions behind ESL Hub**
+**Delivery confirmation and failure isolation**
 
-I chose quiet e-paper displays for household information, accepting limited space and scheduled updates. During repairs with Codex, we found that an accepted request did not always mean the display had updated. Success now requires delivery confirmation.
+- **I wanted status to describe what reached the wall.** Missed updates led to a wider reliability investigation. We found that an accepted gateway request could be reported as success without confirmed delivery to a tag. Publishing now checks the response and polls the gateway's task ID. **Success** means confirmed delivery; **Pending** means accepted but unconfirmed. This adds a wait, but makes the status useful for deciding whether to retry.
 
-I pushed back when a text-overflow fix started changing the vendor's layout. We shortened long titles in code instead. I also questioned why calendar events were missing, which exposed a data-filtering problem behind the initial explanation. Delivery checks still cannot prove that the displayed information is complete.
+- **One integration should not hold up the others.** Controllers run in separate processes with a five-minute deadline, and overlapping runs of the same controller are suppressed. Settings and logs use locked, atomic writes. The investigation also found that reusing whole-second timestamps as task IDs caused collisions between updates; the gateway now assigns them. These choices address failure isolation and concurrency, not just whether an API call returns.
 
-[Read the tradeoffs and AI collaboration](https://github.com/desigrit/esl-home-hub#decisions-behind-esl-hub)
+- **I pushed back on changing the wrong layer.** When calendar titles overflowed, I stopped edits to the vendor's Layout Designer and asked for a controller change. We used a title that fit as a 29-character baseline, truncating longer text to 27 characters plus two dots. The controller owns the content; the vendor tool owns the layout. The compromise is that a character budget cannot account perfectly for different letter widths.
+
+- **I challenged the first explanation for missing events.** The initial answer focused on the display's four-row limit. I knew expected events were absent and asked which calendar was being read. The follow-up found that events without accessible titles were filtered out before reaching the layout. That changed the diagnosis from limited screen space to permissions and data handling.
+
+- **I chose to pause unavailable feeds.** When two upstream integrations stopped working, I asked to pause them instead of repeatedly retrying. Their configuration remained available for later use, and failed fetches preserve the last display. For e-paper that is a deliberate compromise: a readable old value can remain on the wall, so successful delivery and fresh, complete information must be judged separately.
+
+[Reliability behavior and diagnosis](https://github.com/desigrit/esl-home-hub#run-reliability-and-diagnosis) · [Regression checks](https://github.com/desigrit/esl-home-hub/blob/main/tests/test_robustness.py)
 
 </details>
