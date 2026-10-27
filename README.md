@@ -62,10 +62,6 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 - **Run locally:** use your Ollama server or download a CPU model in Settings.
 - **Zebby credits:** buy a pack for online analysis, then choose GPT-6.1 Sol or GPT-6 Astra. No signup or API key needed.
 
-**Your own API key**
-
-<img src="assets/zebby-key-settings.png?v=2.2.2" width="1200" alt="Zebby's current Settings with OpenAI selected, a masked demo key, model selection and supported thinking levels.">
-
 </details>
 
 <details>
