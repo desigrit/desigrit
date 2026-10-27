@@ -66,12 +66,6 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 <img src="assets/zebby-key-settings.png?v=2.2.2" width="1200" alt="Zebby's current Settings with OpenAI selected, a masked demo key, model selection and supported thinking levels.">
 
-**Optional credit packs**
-
-<img src="assets/zebby-credits.png?v=2.2.2" width="930" alt="Zebby's credit purchase dialog with current packs and illustrative GPT-6.1 Sol High analysis counts.">
-
-Zebby shows the maximum credit cost before analysis and charges for actual usage. A recovery code restores your wallet; computer pairing shares it across your PCs.
-
 </details>
 
 <details>
