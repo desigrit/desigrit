@@ -42,6 +42,20 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 <sub>Sample applications and analysis results.</sub>
 
+**Decisions behind Zebby**
+
+**A score needs an explanation.** Two models once gave the same resume a 62% and a 90% match for the same job. I wanted to show what the job asks for and what the resume actually supports. The score is a rough guide, not a prediction of getting hired.
+
+**Different models do different jobs.** The smallest local model checks which job-related terms appear in the resume and can suggest light edits. It does not judge the depth of someone's experience. I made that limit clear rather than presenting every model's score as the same kind of assessment.
+
+**How I worked with AI.** Codex wrote much of the code and tests. I used the builds in my own job search, combined parts of different design proposals, and turned problems I encountered into specific requests.
+
+**Where I pushed back.** I kept useful fields that a cleaner design had removed. I asked for an explanation when a suggested rewrite left my summary unchanged. And when analysis failed with most of my credits still available, I asked to fix how many credits the app set aside before a run while keeping my chosen model and settings.
+
+**What I still need to test.** I want to compare the advice with human reviews and find out whether the explanations help people make better edits to their resumes.
+
+[Read the full decisions and AI collaboration writeup](https://github.com/desigrit/zebby-the-scout#product-decisions)
+
 **Analysis options and credits**
 
 - **Bring your own key:** OpenAI or Anthropic, billed to your provider account.
@@ -113,6 +127,20 @@ Speaker labels and native Windows and Mac apps.
 </a>
 
 <sub>macOS interface with a demo conversation. Select the image for a closer look.</sub>
+
+**Decisions behind Sunno**
+
+**The main tradeoff.** Captions need to arrive soon enough to follow a conversation and get the words right. I kept several model choices because the best balance depends on the computer and the speech. On Mac, I chose to try fast captions followed by corrections from a larger model. That uses more memory and power, and still needs a fair comparison.
+
+**A choice about trust.** The same speech got a more reassuring confidence score on Mac than on Windows. We left that score out on Mac until we can check it properly. A reassuring number is only useful if it means what the reader thinks it means.
+
+**How I worked with AI.** AI helped investigate problems and write code and tests. I tried the app in conversations and while watching videos, then brought back specific failures. I also questioned whether we were making good use of the Mac's hardware and chose changes I could compare in the same app.
+
+**Where I pushed back.** When one webinar presenter appeared as several speakers, I questioned whether speaker labels should stay at all. I rejected a single-speaker mode as a poor fit for the changing videos I watch. I asked for optional labels that could be corrected as more speech arrived, without interrupting the captions. That work is still being evaluated.
+
+**What I still need to test.** I want to measure accuracy, delay and battery use, and learn how comfortable the captions are to follow when words and speaker labels change.
+
+Read the full writeups: [Windows](https://github.com/desigrit/sunno#product-decisions-and-model-judgment) · [Mac](https://github.com/desigrit/sunno-macos#product-decisions-and-model-judgment)
 
 </details>
 
