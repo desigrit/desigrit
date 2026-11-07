@@ -74,10 +74,18 @@ A desktop app for job seekers, with local models, your own API keys or optional 
 
 [Full decision notes](https://github.com/desigrit/zebby-the-scout#product-decisions) · [Analysis rules](https://github.com/desigrit/zebby-the-scout/blob/main/desktop/analysis-contracts.ts)
 
+**Model evaluation**
+
+I followed up on the inconsistent match scores with **ten saved roles and 21 cloud/local configurations**. The comparison separated completion, speed and factual support. More thinking did not consistently improve the rewrites; some models correctly identified a gap, then invented the missing experience.
+
+[![Zebby benchmark: how thinking settings affected analysis time on cloud APIs, a remote GPU and an M1 Max.](https://raw.githubusercontent.com/desigrit/zebby-the-scout/main/docs/evaluations/2026-11-model-comparison/thinking-time.png)](https://github.com/desigrit/zebby-the-scout/tree/main/docs/evaluations/2026-11-model-comparison)
+
+[Read the report: test set, hypothesis and outcomes](https://github.com/desigrit/zebby-the-scout/tree/main/docs/evaluations/2026-11-model-comparison) · [Full measurements](https://github.com/desigrit/zebby-the-scout/blob/main/docs/evaluations/2026-11-model-comparison/results.csv)
+
 **Analysis options and credits**
 
 - **Bring your own key:** OpenAI or Anthropic, billed to your provider account.
-- **Run locally:** use your Ollama server or download a CPU model in Settings.
+- **Run locally:** use your Ollama server or download a model in Settings with supported GPU acceleration.
 - **Zebby credits:** buy a pack for online analysis, then choose GPT-6.1 Sol or GPT-6 Astra. No signup or API key needed.
 
 </details>
