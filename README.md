@@ -4,7 +4,7 @@
 
 Builder of stuff.
 
-**Local AI, speech interfaces, and custom harnesses.**
+**Local AI, speech interfaces, and beautiful experiences.**
 
 [LinkedIn](https://www.linkedin.com/in/raunakoberoi/)
 
